@@ -8,6 +8,7 @@ public class App {
 
   public static void main(String[] args) throws IOException {
 
+    final Logger logger = new Logger();
     final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     while (true) {
@@ -26,6 +27,7 @@ public class App {
       String output = null;
       try {
         output = new TranscodingService(TranscoderFactory.getInstance(transcoder)).transcode(input);
+        logger.log(input, transcoder, output);
       } catch (Exception e) {
         error(e.getMessage());
         continue;
@@ -33,6 +35,8 @@ public class App {
 
       message("=> " + output);
     }
+
+    logger.getLogs().forEach(System.out::println);
   }
 
   static void message(String message) {
