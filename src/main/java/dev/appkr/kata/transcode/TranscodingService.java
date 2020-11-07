@@ -8,6 +8,10 @@ public class TranscodingService implements Transcoder {
   }
 
   public String transcode(String input) {
+    if (transcoder == null) {
+      return input;
+    }
+    
     return transcoder.transcode(input);
   }
 }
